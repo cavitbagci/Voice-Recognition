@@ -8,7 +8,6 @@ from features import extract_features
 # Ses dosyalarının bulunduğu klasör
 audio_folder = "audio_samples"
 
-# Özellikleri ve etiketleri hazırlayın
 features = []
 labels = []
 
@@ -22,7 +21,7 @@ for file_name in os.listdir(audio_folder):
         if feature is not None:
             features.append(feature)
             
-            # Etiketi dosya adına göre belirleyin (ör. person1 için "Kisi1")
+            # Etiketi dosya adına göre belirle
         if "cavit" in file_name:
             label = "Cavit"
         elif "fatihterim" in file_name:
@@ -39,18 +38,15 @@ for file_name in os.listdir(audio_folder):
                 label = "Bilal"
         labels.append(label)
 
-# Veriyi eğitim ve test setlerine ayırın
 X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
 
-# Modeli eğitin
 model = RandomForestClassifier()
 model.fit(X_train, y_train)
 
-# Modeli değerlendirin
+# Modeli değerlendir
 y_pred = model.predict(X_test)
 print("Doğruluk:", accuracy_score(y_test, y_pred))
 
-# Modeli kaydedin
 import joblib
 joblib.dump(model, "voice_model.pkl")
 print("Model başarıyla kaydedildi.")
